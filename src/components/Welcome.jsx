@@ -18,7 +18,7 @@ export default function Welcome({ name, onNameChange, onStart }) {
             </h1>
 
             <p className="welcome__lede">
-              Responde 5 preguntas y llévate tu photocard con la canción que te representa.
+              Responde 4 preguntas y llévate tu photocard con la canción que te representa.
             </p>
 
             <label className="welcome__field">
