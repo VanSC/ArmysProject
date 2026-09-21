@@ -1,0 +1,66 @@
+/* ============================================================
+   Lluvia de mascotas Perú (BT21) en toda la pantalla.
+   Capa fija, detrás del contenido y sin capturar clics.
+   ============================================================ */
+
+.mascots {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* capa que cae por delante de las tarjetas, más tenue */
+.mascots--front { z-index: 6; }
+.mascots--front .mascots__img { opacity: calc(var(--op) * 0.45); }
+
+/* el contenedor cae; el hijo se balancea y gira */
+.mascots__fall {
+  position: absolute;
+  top: -20vh;
+  left: var(--x);
+  will-change: transform;
+  animation-name: mascotFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: var(--dur);
+  animation-delay: var(--delay);
+}
+
+.mascots__sway {
+  display: block;
+  animation-name: mascotSway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: var(--sway);
+  animation-delay: var(--delay);
+}
+
+.mascots__img {
+  display: block;
+  width: var(--s);
+  height: auto;
+  opacity: var(--op);
+  filter: drop-shadow(0 6px 12px rgba(110, 10, 26, 0.28));
+}
+
+@keyframes mascotFall {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, 128vh, 0); }
+}
+
+@keyframes mascotSway {
+  from { transform: translateX(-16px) rotate(-7deg); }
+  to   { transform: translateX(16px) rotate(7deg); }
+}
+
+/* en pantallas chicas, mascotas un poco más discretas */
+@media (max-width: 520px) {
+  .mascots__img { opacity: calc(var(--op) * 0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascots { display: none; }
+}

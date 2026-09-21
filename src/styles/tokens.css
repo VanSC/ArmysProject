@@ -1,0 +1,52 @@
+:root {
+  /* ---- paleta: blanco dominante + rojo ---- */
+  --blanco:      #FFFFFF;
+  --hueso:       #FFF6F7;   /* fondo de la app */
+  --nube:        #FFFBFB;
+  --rosa-pal:    #FFE7EB;
+  --rosa-suave:  #FFD3DA;
+
+  --rojo:        #D7263D;   /* rojo principal */
+  --rojo-vivo:   #F5354F;
+  --rojo-oscuro: #A50F27;
+  --rojo-tinta:  #6E0A1A;
+
+  --tinta:       #1E1416;   /* texto principal */
+  --tinta-media: #5F4449;
+  --tinta-suave: #8C7378;
+
+  --linea:       rgba(215, 38, 61, 0.18);
+  --linea-fina:  rgba(30, 20, 22, 0.08);
+
+  /* ---- sombras ---- */
+  --sombra-sm:   0 2px 10px -4px rgba(110, 10, 26, 0.18);
+  --sombra-md:   0 14px 34px -20px rgba(110, 10, 26, 0.40),
+                 0 2px 8px -4px rgba(30, 20, 22, 0.08);
+  --sombra-lg:   0 28px 64px -28px rgba(110, 10, 26, 0.45),
+                 0 4px 14px -8px rgba(30, 20, 22, 0.10);
+  --sombra-rojo: 0 12px 28px -14px rgba(215, 38, 61, 0.65);
+
+  /* ---- tipografía ---- */
+  --f-display: 'Comic Sans MS', 'Comic Sans', cursive;
+  --f-ui: 'Comic Sans MS', 'Comic Sans', cursive;
+
+  /* ---- movimiento ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 180ms var(--ease);
+  --t-med: 340ms var(--ease);
+
+  /* ---- medidas ---- */
+  --card-w: min(80vw, 330px);
+  --panel-w: min(100%, 560px);
+  --radius-sm: 12px;
+  --radius: 18px;
+  --radius-lg: 26px;
+  --gutter: clamp(1rem, 4vw, 1.75rem);
+
+  /* ---- franja del barco (fija abajo) ---- */
+  --ship-h: clamp(40px, 8vw, 60px);
+}
+
+@media (max-width: 380px) {
+  :root { --card-w: min(86vw, 300px); }
+}

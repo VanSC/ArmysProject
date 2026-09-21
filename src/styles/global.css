@@ -1,0 +1,374 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--hueso);
+  color: var(--tinta);
+  font-family: var(--f-ui);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rojo);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.app {
+  position: relative;
+  min-height: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- botón base ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem clamp(1.6rem, 6vw, 2.4rem);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: clamp(0.95rem, 2.6vw, 1.02rem);
+  letter-spacing: 0.02em;
+  transition: transform var(--t-fast), background var(--t-fast),
+              box-shadow var(--t-fast), opacity var(--t-fast), color var(--t-fast);
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--rojo-vivo) 0%, var(--rojo) 55%, var(--rojo-oscuro) 100%);
+  color: var(--blanco);
+  box-shadow: var(--sombra-rojo);
+}
+.btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -14px rgba(215, 38, 61, 0.8);
+}
+
+.btn--ghost {
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  color: var(--rojo-oscuro);
+  padding: 0.8rem 1.6rem;
+  box-shadow: var(--sombra-sm);
+}
+.btn--ghost:hover:not(:disabled) {
+  border-color: var(--rojo);
+  color: var(--rojo);
+  transform: translateY(-1px);
+}
+
+.btn:disabled { opacity: 0.38; cursor: not-allowed; box-shadow: none; }
+
+/* ---------- botón sticker tipo parche (Iniciar / Siguiente) ---------- */
+.btn--sticker {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--tinta);
+  color: var(--blanco);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transform: rotate(-2deg);
+  box-shadow:
+    0 0 0 3px var(--blanco),
+    0 0 0 5px rgba(30, 20, 22, 0.9);
+}
+
+.btn--sticker::before,
+.btn--sticker::after {
+  content: '';
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  z-index: -1;
+  box-shadow: 0 0 0 2.5px rgba(255, 255, 255, 0.92);
+}
+.btn--sticker::before {
+  top: 16%;
+  height: 40%;
+  background: linear-gradient(120deg, var(--rojo-oscuro) 0%, var(--rojo) 45%, var(--rojo-vivo) 100%);
+  transform: rotate(-5deg);
+}
+.btn--sticker::after {
+  bottom: 10%;
+  height: 15%;
+  background: linear-gradient(120deg, var(--rojo-vivo) 0%, var(--rojo) 60%, var(--rojo-oscuro) 100%);
+  transform: rotate(4deg);
+  opacity: 0.92;
+}
+
+.btn--sticker .btn__check {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+.btn--sticker .btn__label { position: relative; }
+
+.btn--sticker:hover:not(:disabled) {
+  transform: rotate(0deg) translateY(-3px);
+  box-shadow:
+    0 0 0 3px var(--blanco),
+    0 0 0 5px rgba(30, 20, 22, 0.9);
+}
+.btn--sticker:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: 0 0 0 3px var(--blanco), 0 0 0 5px rgba(30, 20, 22, 0.9); }
+
+/* ---------- botón con sticker/imagen real (Iniciar, Siguiente, Descargar) ---------- */
+.btn--stickerimg {
+  position: relative;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  transform: rotate(-2deg);
+  transition: transform var(--t-fast), opacity var(--t-fast);
+}
+.btn--stickerimg:hover:not(:disabled) {
+  transform: rotate(0deg) translateY(-3px) scale(1.03);
+}
+.btn--stickerimg:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.btn__stickerimg {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.btn__stickerimg-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--blanco);
+  background: rgba(30, 20, 22, 0.55);
+  border-radius: 999px;
+}
+
+/* ---------- superficie tipo ticket (todas las tarjetas) ---------- */
+.ticket-wrap {
+  position: relative;
+  width: 100%;
+  transition: opacity 260ms var(--ease), transform 260ms var(--ease);
+}
+
+/* esconder tarjetas con un click (botón del ojo) */
+body.hide-cards .ticket-wrap {
+  opacity: 0;
+  transform: scale(0.94);
+  pointer-events: none;
+}
+
+.surface {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  filter: drop-shadow(0 18px 30px rgba(110, 10, 26, 0.30))
+          drop-shadow(0 3px 9px rgba(30, 20, 22, 0.12));
+  clip-path: polygon(
+    0.00px 16.00px,
+    calc(0% + 0.78px) 11.06px,
+    calc(0% + 3.06px) 6.60px,
+    calc(0% + 6.60px) 3.06px,
+    calc(0% + 11.06px) 0.78px,
+    calc(0% + 16.00px) 0.00px,
+    4.211% 0.00px,
+    4.791% 3.44px,
+    6.446% 6.36px,
+    8.922% 8.31px,
+    11.842% 9.00px,
+    14.763% 8.31px,
+    17.238% 6.36px,
+    18.893% 3.44px,
+    19.474% 0.00px,
+    19.474% 0.00px,
+    20.055% 3.44px,
+    21.709% 6.36px,
+    24.185% 8.31px,
+    27.105% 9.00px,
+    30.026% 8.31px,
+    32.502% 6.36px,
+    34.156% 3.44px,
+    34.737% 0.00px,
+    34.737% 0.00px,
+    35.318% 3.44px,
+    36.972% 6.36px,
+    39.448% 8.31px,
+    42.368% 9.00px,
+    45.289% 8.31px,
+    47.765% 6.36px,
+    49.419% 3.44px,
+    50.000% 0.00px,
+    50.000% 0.00px,
+    50.581% 3.44px,
+    52.235% 6.36px,
+    54.711% 8.31px,
+    57.632% 9.00px,
+    60.552% 8.31px,
+    63.028% 6.36px,
+    64.682% 3.44px,
+    65.263% 0.00px,
+    65.263% 0.00px,
+    65.844% 3.44px,
+    67.498% 6.36px,
+    69.974% 8.31px,
+    72.895% 9.00px,
+    75.815% 8.31px,
+    78.291% 6.36px,
+    79.945% 3.44px,
+    80.526% 0.00px,
+    80.526% 0.00px,
+    81.107% 3.44px,
+    82.762% 6.36px,
+    85.237% 8.31px,
+    88.158% 9.00px,
+    91.078% 8.31px,
+    93.554% 6.36px,
+    95.209% 3.44px,
+    95.789% 0.00px,
+    calc(100% - 16.00px) 0.00px,
+    calc(100% - 11.06px) 0.78px,
+    calc(100% - 6.60px) 3.06px,
+    calc(100% - 3.06px) 6.60px,
+    calc(100% - 0.78px) 11.06px,
+    calc(100% - 0.00px) 16.00px,
+    calc(100% - 0.00px) calc(100% - 16.00px),
+    calc(100% - 0.78px) calc(100% - 11.06px),
+    calc(100% - 3.06px) calc(100% - 6.60px),
+    calc(100% - 6.60px) calc(100% - 3.06px),
+    calc(100% - 11.06px) calc(100% - 0.78px),
+    calc(100% - 16.00px) calc(100% - 0.00px),
+    95.789% calc(100% - 0.00px),
+    95.209% calc(100% - 3.44px),
+    93.554% calc(100% - 6.36px),
+    91.078% calc(100% - 8.31px),
+    88.158% calc(100% - 9.00px),
+    85.237% calc(100% - 8.31px),
+    82.762% calc(100% - 6.36px),
+    81.107% calc(100% - 3.44px),
+    80.526% calc(100% - 0.00px),
+    80.526% calc(100% - 0.00px),
+    79.945% calc(100% - 3.44px),
+    78.291% calc(100% - 6.36px),
+    75.815% calc(100% - 8.31px),
+    72.895% calc(100% - 9.00px),
+    69.974% calc(100% - 8.31px),
+    67.498% calc(100% - 6.36px),
+    65.844% calc(100% - 3.44px),
+    65.263% calc(100% - 0.00px),
+    65.263% calc(100% - 0.00px),
+    64.682% calc(100% - 3.44px),
+    63.028% calc(100% - 6.36px),
+    60.552% calc(100% - 8.31px),
+    57.632% calc(100% - 9.00px),
+    54.711% calc(100% - 8.31px),
+    52.235% calc(100% - 6.36px),
+    50.581% calc(100% - 3.44px),
+    50.000% calc(100% - 0.00px),
+    50.000% calc(100% - 0.00px),
+    49.419% calc(100% - 3.44px),
+    47.765% calc(100% - 6.36px),
+    45.289% calc(100% - 8.31px),
+    42.368% calc(100% - 9.00px),
+    39.448% calc(100% - 8.31px),
+    36.972% calc(100% - 6.36px),
+    35.318% calc(100% - 3.44px),
+    34.737% calc(100% - 0.00px),
+    34.737% calc(100% - 0.00px),
+    34.156% calc(100% - 3.44px),
+    32.502% calc(100% - 6.36px),
+    30.026% calc(100% - 8.31px),
+    27.105% calc(100% - 9.00px),
+    24.185% calc(100% - 8.31px),
+    21.709% calc(100% - 6.36px),
+    20.055% calc(100% - 3.44px),
+    19.474% calc(100% - 0.00px),
+    19.474% calc(100% - 0.00px),
+    18.893% calc(100% - 3.44px),
+    17.238% calc(100% - 6.36px),
+    14.763% calc(100% - 8.31px),
+    11.842% calc(100% - 9.00px),
+    8.922% calc(100% - 8.31px),
+    6.446% calc(100% - 6.36px),
+    4.791% calc(100% - 3.44px),
+    4.211% calc(100% - 0.00px),
+    calc(0% + 16.00px) calc(100% - 0.00px),
+    calc(0% + 11.06px) calc(100% - 0.78px),
+    calc(0% + 6.60px) calc(100% - 3.06px),
+    calc(0% + 3.06px) calc(100% - 6.60px),
+    calc(0% + 0.78px) calc(100% - 11.06px),
+    0.00px calc(100% - 16.00px)
+  );
+}
+
+/* ---------- estrellas decorativas del ticket ---------- */
+.ticket-star {
+  position: absolute;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+    50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+  );
+  pointer-events: none;
+}
+.ticket-star--black { background: var(--tinta); }
+.ticket-star--red   { background: var(--rojo); }
+
+.ticket-star--sm { width: 18px; height: 18px; }
+.ticket-star--md { width: 28px; height: 28px; }
+.ticket-star--lg { width: 38px; height: 38px; }
+.ticket-star--xl { width: 50px; height: 50px; }
+
+.ticket-star--tl { top: -12px;  left: -10px;  transform: rotate(-18deg); }
+.ticket-star--tr { top: -16px;  right: -12px; transform: rotate(14deg); }
+.ticket-star--bl { bottom: -12px; left: -8px;  transform: rotate(10deg); }
+.ticket-star--br { bottom: -14px; right: -10px; transform: rotate(-12deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

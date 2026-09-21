@@ -1,0 +1,27 @@
+AVISO: desde el 21 sep 2026 las fotos se leen de  public/BTS - PHOTOCARDS/  (ver src/data/designs.js).
+Esta carpeta ya no se usa.
+
+PHOTOCARDS
+==========
+
+Todos los PNG van aquí, a 1000 x 1500 px, con nombre corto y en minúscula.
+
+1) FOTO POR BIAS  (es la que se usa primero)
+   rm.png      jin.png     suga.png    jhope.png
+   jimin.png   v.png       jk.png      ot7.png
+
+   La app pide la foto que corresponde al bias elegido.
+   Para cambiar una, solo reemplaza ese archivo.
+
+2) POOL DE RESPALDO
+   1.png … 15.png
+
+   Si el archivo del bias todavía no existe, la app cae
+   automáticamente en una de estas, sorteada al azar.
+   Si tampoco carga ninguna, queda un degradado rojo.
+
+Para sumar o quitar cards del pool, edita el array
+DISPONIBLES en  src/data/designs.js
+
+Zona segura: deja libres los ~340 px inferiores, ahí van el
+nombre, la canción, el bias y los días de concierto.

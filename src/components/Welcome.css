@@ -1,0 +1,116 @@
+.welcome__logo {
+  margin-bottom: clamp(0.9rem, 3vw, 1.4rem);
+}
+
+.welcome__card {
+  width: 100%;
+  padding: clamp(1.5rem, 6vw, 2.75rem) clamp(1.25rem, 5vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.85rem, 2.6vw, 1.1rem);
+  position: relative;
+  overflow: hidden;
+}
+
+/* filo rojo superior */
+.welcome__card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--rojo-vivo), var(--rojo), var(--rojo-oscuro));
+}
+
+.welcome__eyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+  color: var(--rojo);
+  font-weight: 600;
+}
+
+.welcome__title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 9.5vw, 3.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: var(--tinta);
+}
+.welcome__title em {
+  font-style: italic;
+  color: var(--rojo);
+}
+
+.welcome__lede {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--tinta-media);
+  font-size: clamp(0.94rem, 3.4vw, 1.02rem);
+}
+
+/* ---- campo de nombre ---- */
+.welcome__field {
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.welcome__field-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tinta-media);
+}
+
+.welcome__input {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  border: 1.5px solid var(--linea);
+  border-radius: 999px;
+  background: var(--nube);
+  text-align: center;
+  font-size: clamp(1rem, 4vw, 1.1rem);
+  font-weight: 600;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+}
+.welcome__input::placeholder { color: var(--tinta-suave); font-weight: 400; }
+.welcome__input:focus {
+  outline: none;
+  background: var(--blanco);
+  border-color: var(--rojo);
+  box-shadow: 0 0 0 4px rgba(215, 38, 61, 0.12);
+}
+
+.welcome__army {
+  width: 60%;
+  max-width: 190px;
+  height: auto;
+  margin-top: 0.2rem;
+  opacity: 0.92;
+}
+
+.welcome__question {
+  margin: 0.4rem 0 0;
+  font-family: var(--f-display);
+  font-size: clamp(1.25rem, 5.5vw, 1.7rem);
+  font-weight: 600;
+  color: var(--rojo-oscuro);
+}
+
+.welcome__btn {
+  width: min(50%, 150px);
+}
+
+.welcome__foot {
+  margin: clamp(0.9rem, 3vw, 1.3rem) 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--tinta-suave);
+}

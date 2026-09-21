@@ -1,0 +1,86 @@
+/* ============================================================
+   Lluvia de corazones rojos en toda la pantalla.
+   Capa fija, detrás del contenido y sin capturar clics.
+   ============================================================ */
+
+.hearts {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* capa que cae por delante de las tarjetas, más tenue */
+.hearts--front { z-index: 6; }
+.hearts--front .heart { opacity: calc(var(--op) * 0.30); }
+
+/* el contenedor cae; el hijo se balancea y gira */
+.hearts__fall {
+  position: absolute;
+  top: -14vh;
+  left: var(--x);
+  will-change: transform;
+  animation-name: heartFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: var(--dur);
+  animation-delay: var(--delay);
+}
+
+.hearts__sway {
+  display: block;
+  animation-name: heartSway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: var(--sway);
+  animation-delay: var(--delay);
+}
+
+/* corazón puro CSS: cuadrado rotado + dos círculos */
+.heart {
+  display: block;
+  position: relative;
+  width: var(--s);
+  height: var(--s);
+  background: var(--c);
+  transform: rotate(-45deg);
+  opacity: var(--op);
+  box-shadow:
+    0 0 var(--blur) rgba(215, 38, 61, 0.75),
+    0 8px 18px -6px rgba(110, 10, 26, 0.55);
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: 50%;
+  box-shadow: inherit;
+}
+
+.heart::before { top: -50%; left: 0; }
+.heart::after  { top: 0; left: 50%; }
+
+@keyframes heartFall {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, 128vh, 0); }
+}
+
+@keyframes heartSway {
+  from { transform: translateX(-14px) rotate(-6deg); }
+  to   { transform: translateX(14px) rotate(6deg); }
+}
+
+/* en pantallas chicas, corazones un poco más discretos */
+@media (max-width: 520px) {
+  .heart { opacity: calc(var(--op) * 0.85); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hearts { display: none; }
+}

@@ -1,0 +1,91 @@
+/* fondo de la app · transición suave entre modo claro y oscuro */
+body {
+  transition: background var(--t-med);
+}
+body.dark {
+  background: #100A18;
+}
+
+/* galaxia de fondo: nebulosa + polvo de estrellas · rojo en modo claro, violeta en modo oscuro */
+.app__galaxy {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.85;
+  transition: opacity 600ms var(--ease), background 600ms var(--ease);
+  background:
+    radial-gradient(50% 34% at 20% 14%, rgba(255, 150, 165, 0.22) 0%, transparent 72%),
+    radial-gradient(45% 30% at 86% 78%, rgba(215, 38, 61, 0.16) 0%, transparent 72%),
+    url("/galaxy-stars-red.png") repeat;
+  background-size: auto, auto, 210px 210px;
+}
+body.dark .app__galaxy {
+  opacity: 1;
+  background:
+    radial-gradient(55% 38% at 18% 12%, rgba(150, 100, 220, 0.4) 0%, transparent 70%),
+    radial-gradient(50% 34% at 88% 20%, rgba(90, 70, 210, 0.32) 0%, transparent 70%),
+    radial-gradient(55% 40% at 75% 78%, rgba(120, 60, 190, 0.3) 0%, transparent 70%),
+    radial-gradient(45% 32% at 12% 82%, rgba(215, 38, 61, 0.22) 0%, transparent 70%),
+    url("/galaxy-stars.png") repeat;
+  background-size: auto, auto, auto, auto, 210px 210px;
+}
+
+/* constelación de fondo · roja en modo claro, blanca en modo oscuro */
+.app__constellation {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 480ms var(--ease);
+}
+.app__constellation--light { opacity: 1; }
+.app__constellation--dark { opacity: 0; }
+body.dark .app__constellation--light { opacity: 0; }
+body.dark .app__constellation--dark { opacity: 1; }
+
+/* fondo suave detrás de todo (por encima de la constelación) */
+.app__glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(70% 50% at 50% -5%, rgba(215, 38, 61, 0.18) 0%, transparent 68%),
+    radial-gradient(60% 45% at 8% 100%, rgba(255, 211, 218, 0.55) 0%, transparent 70%),
+    radial-gradient(60% 45% at 95% 82%, rgba(255, 231, 235, 0.75) 0%, transparent 70%);
+  transition: opacity 480ms var(--ease);
+}
+body.dark .app__glow {
+  opacity: 0.55;
+}
+
+.screen {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 5vw, 2.5rem) var(--gutter);
+  padding-bottom: calc(var(--ship-h) + clamp(1.25rem, 5vw, 2.5rem));
+  text-align: center;
+  animation: fadeUp 480ms var(--ease) both;
+}
+
+.screen__panel {
+  width: var(--panel-w);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
