@@ -26,9 +26,9 @@
                  0 4px 14px -8px rgba(30, 20, 22, 0.10);
   --sombra-rojo: 0 12px 28px -14px rgba(215, 38, 61, 0.65);
 
-  /* ---- tipografía ---- */
-  --f-display: 'Comic Sans MS', 'Comic Sans', cursive;
-  --f-ui: 'Comic Sans MS', 'Comic Sans', cursive;
+  /* ---- tipografía (fuente web: misma apariencia en todos los dispositivos) ---- */
+  --f-display: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive;
+  --f-ui: 'Comic Neue', 'Comic Sans MS', 'Comic Sans', cursive;
 
   /* ---- movimiento ---- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
